@@ -4,244 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>書類選考スクリーニング</title>
+<title>書類選考チェック</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F2F4F3; --sheet:#FFFFFF; --ink:#1D2730; --sub:#5C6770; --line:#D5DAD8; --soft:#E9EDEB;
-  --ai:#27466B; --pass:#1C7557; --hold:#A8690F; --reject:#B8352B; --mute:#7A848B;
-  --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
-  --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --shu:#D7131B; --shu-d:#A60C13; --sumi:#1B1412; --kinari:#FAF6EE; --kami:#FFFFFF; --kin:#B58A2E; --kin-l:#EADDBF;
+  --line:#E2D8C6; --sub:#6A5E57; --ok:#1B7A4E; --chk:#A8700C; --ng:#D7131B; --mute:#8D827B;
+  --disp:"Dela Gothic One","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--gothic);font-size:15px;line-height:1.7}
-.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 80px}
-header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-bottom:18px;border-bottom:2px solid var(--ink)}
-header.top h1{font-family:var(--mincho);font-weight:800;font-size:30px;letter-spacing:.06em;margin:0;line-height:1.3}
-header.top p{margin:4px 0 0;color:var(--sub);font-size:14px}
-.local{font-size:13px;color:var(--ai);border:1px solid var(--ai);padding:6px 12px;border-radius:2px;background:#fff;max-width:340px;line-height:1.5}
-section.step{background:var(--sheet);border:1px solid var(--line);margin-top:22px;padding:20px 22px 22px}
-.step > h2{display:flex;align-items:baseline;gap:12px;font-size:18px;margin:0 0 4px;font-weight:700}
-.step > h2 .no{font-family:var(--mincho);font-weight:800;font-size:26px;color:var(--ai);line-height:1}
-.step > .lead{margin:0 0 14px;color:var(--sub);font-size:13.5px}
-button,select,input,textarea{font-family:inherit;font-size:14px;color:var(--ink)}
-button{cursor:pointer;background:#fff;border:1px solid var(--ink);padding:7px 14px;border-radius:2px;font-weight:500}
-button:hover{background:var(--soft)}
-button.primary{background:var(--ai);border-color:var(--ai);color:#fff}
-button.primary:hover{background:#1c3552}
-button.quiet{border-color:var(--line);color:var(--sub)}
-button.danger{border-color:var(--reject);color:var(--reject)}
-button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,.drop:focus-visible{outline:3px solid #7FA6D6;outline-offset:1px}
-input[type=text],input[type=number],select,textarea{border:1px solid var(--line);background:#fff;padding:7px 9px;border-radius:2px}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.row.spread{justify-content:space-between}
-.posbar{margin-bottom:14px}
-.posbar > .row{min-width:0;max-width:100%}
-.posbar select{width:420px;max-width:100%;font-weight:700}
-.posname{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-.posname label{font-size:13px;color:var(--sub)}
-.posname input[type=text]{flex:1;min-width:220px}
-table.crit{width:100%;border-collapse:collapse}
-table.crit th{font-size:12.5px;text-align:left;color:var(--sub);font-weight:500;padding:4px 6px;border-bottom:1px solid var(--ink)}
-table.crit td{padding:5px 6px 5px 0;border-bottom:1px solid var(--soft);vertical-align:top}
-table.crit select{width:86px}
-table.crit input[type=text]{width:100%}
-table.crit td.t{width:96px} table.crit td.l{width:30%} table.crit td.x{width:40px;padding-right:0}
-table.crit tr[data-type=must] select{border-left:4px solid var(--ai)}
-table.crit tr[data-type=want] select{border-left:4px solid var(--pass)}
-table.crit tr[data-type=ng] select{border-left:4px solid var(--reject)}
-.xbtn{border:none;background:none;color:var(--mute);font-size:18px;padding:4px 8px;line-height:1}
-.xbtn:hover{color:var(--reject);background:none}
-.hint{font-size:12.5px;color:var(--sub);margin:10px 0 0}
-.hint code{background:var(--soft);padding:1px 5px;border-radius:2px;font-family:inherit}
-.drop{border:2px dashed var(--mute);background:var(--paper);padding:30px 16px;text-align:center;cursor:pointer;border-radius:2px}
-.drop.over{border-color:var(--ai);background:#E4ECF5}
-.drop strong{display:block;font-size:16px}
-.drop span{color:var(--sub);font-size:13px}
-.opts{margin-top:12px;gap:6px 22px}
-.opts label{font-size:13.5px;display:flex;align-items:center;gap:6px;cursor:pointer}
-#progress{font-size:13px;color:var(--ai);margin-top:8px;min-height:1.4em}
-.chips{gap:6px;margin-bottom:12px}
-.chip{border:1px solid var(--line);background:#fff;padding:4px 12px;border-radius:999px;font-size:13px}
-.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.empty{padding:26px 8px;text-align:center;color:var(--sub);border:1px dashed var(--line)}
-.cand{border-top:1px solid var(--line)}
-.cand:last-child{border-bottom:1px solid var(--line)}
-.cand-head{display:grid;grid-template-columns:64px minmax(0,1fr) 140px 132px 170px 34px;gap:12px;align-items:center;padding:12px 0}
-.stamp{width:54px;height:54px;border:2px solid currentColor;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mincho);font-weight:800;font-size:17px;line-height:1.08;transform:rotate(-7deg);box-shadow:inset 0 0 0 2px #fff, inset 0 0 0 3px currentColor}
-.v-pass{color:var(--pass)} .v-hold{color:var(--hold)} .v-reject{color:var(--reject)} .v-unreadable{color:var(--mute)}
-.cid{font-weight:700;font-size:16px;letter-spacing:.03em}
-.files{font-size:12.5px;color:var(--sub);overflow-wrap:anywhere}
-.reason{font-size:13.5px;margin-top:2px}
-.counts{font-size:13px;color:var(--sub)}
-.counts b{color:var(--ink);font-size:15px}
-.counts .ng b{color:var(--reject)} .counts .dbt b{color:var(--hold)}
-.cand-head select,.cand-head input{width:100%}
-.tog{border:none;background:none;font-size:15px;padding:6px;color:var(--sub)}
-.detail{padding:4px 0 18px 76px}
-table.chk{width:100%;border-collapse:collapse;font-size:13.5px}
-table.chk th{font-size:12px;color:var(--sub);text-align:left;font-weight:500;border-bottom:1px solid var(--line);padding:3px 8px 3px 0}
-table.chk td{padding:6px 8px 6px 0;border-bottom:1px solid var(--soft);vertical-align:top}
-table.chk td.k{white-space:nowrap;width:56px;font-size:12.5px;color:var(--sub)}
-table.chk td.r{width:56px;font-weight:700;white-space:nowrap}
-.ok{color:var(--pass)} .no{color:var(--reject)} .na{color:var(--mute)} .dbt{color:var(--hold)}
-.snip{display:block;color:var(--sub);font-size:12.5px;overflow-wrap:anywhere}
-.snip mark{background:#FFE9A8;color:var(--ink);padding:0 2px}
-.extra{margin-top:12px;font-size:13px;color:var(--sub)}
-.extra input{width:min(360px,100%);margin-left:6px}
-details.raw{margin-top:10px}
-details.raw summary{cursor:pointer;font-size:13px;color:var(--ai)}
-details.raw pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--paper);border:1px solid var(--line);padding:12px;max-height:340px;overflow:auto;font-family:inherit;font-size:12.5px;line-height:1.6;margin:8px 0 0}
-.exports{margin-top:16px}
-details.rules{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
-details.rules > summary{cursor:pointer;font-weight:700;font-size:15px}
-details.rules > summary small{font-weight:400;color:var(--sub);font-size:12.5px;margin-left:8px}
-.ruse{display:flex;align-items:center;gap:6px;margin:10px 0;font-size:14px;cursor:pointer}
-.rgrid{display:grid;grid-template-columns:170px minmax(0,1fr);gap:8px 14px;align-items:center;font-size:13.5px}
-.rgrid > span{color:var(--sub);font-size:13px}
-.rgrid > div{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
-.rgrid input[type=number]{width:62px}
-.rgrid input[type=text],.rgrid textarea{width:100%}
-.rgrid textarea{height:64px;resize:vertical;line-height:1.5}
-.rgrid label{display:flex;align-items:center;gap:5px;cursor:pointer}
-.rgrid.off{opacity:.5}
-.prof{border:1px solid var(--line);background:var(--paper);padding:12px 14px;margin-bottom:14px}
-.prof-h{font-weight:700;font-size:14px;margin-bottom:8px}
-.prof-h span{font-weight:400;color:var(--sub);font-size:12.5px}
-.prof-top{gap:6px 18px;font-size:13.5px;margin-bottom:10px}
-.prof-top label{display:flex;align-items:center;gap:6px}
-.prof-top input[type=number]{width:64px}
+body{margin:0;background:var(--kinari);color:var(--sumi);font-family:var(--body);font-size:15px;line-height:1.7}
+.band{background:var(--shu);color:#fff;border-bottom:5px solid var(--sumi);box-shadow:inset 0 -3px 0 var(--kin)}
+.band-in{max-width:880px;margin:0 auto;padding:22px 16px 24px}
+.band h1{font-family:var(--disp);font-weight:400;font-size:34px;letter-spacing:.08em;line-height:1.25;margin:0}
+.band p{margin:6px 0 0;font-size:14px;font-weight:500}
+.wrap{max-width:880px;margin:0 auto;padding:22px 16px 72px}
+button,select,input{font-family:inherit;font-size:14px;color:var(--sumi)}
+button{cursor:pointer;background:#fff;border:2px solid var(--sumi);padding:7px 16px;border-radius:3px;font-weight:700}
+button:hover{background:var(--kinari)}
+button.red{background:var(--shu);border-color:var(--shu);color:#fff}
+button.red:hover{background:var(--shu-d);border-color:var(--shu-d)}
+button.quiet{border:1px solid var(--line);color:var(--sub);font-weight:500}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,.drop:focus-visible{outline:3px solid #E9A23B;outline-offset:2px}
+input[type=text],input[type=number],select{border:1px solid #CFC4B2;background:#fff;padding:6px 8px;border-radius:3px}
+
+.drop{background:var(--kami);border:3px solid var(--sumi);outline:1px solid var(--kin);outline-offset:-9px;padding:34px 18px 30px;text-align:center;cursor:pointer}
+.drop.over{background:#FFF1EF;border-color:var(--shu)}
+.drop h2{font-family:var(--disp);font-weight:400;font-size:26px;letter-spacing:.1em;margin:0 0 4px;color:var(--shu)}
+.drop p{margin:0 0 14px;color:var(--sub);font-size:13.5px}
+.drop .pick{display:inline-block;background:var(--shu);color:#fff;font-weight:700;font-size:15px;padding:9px 28px;border-radius:3px}
+.drop:hover .pick{background:var(--shu-d)}
+.under{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;align-items:center;margin-top:10px;font-size:13px;color:var(--sub)}
+.under label{display:flex;align-items:center;gap:6px;cursor:pointer}
+#progress{color:var(--shu-d);font-weight:700;min-height:1.5em}
+
+h2.sec{font-family:var(--disp);font-weight:400;font-size:19px;letter-spacing:.06em;margin:30px 0 10px;display:flex;align-items:center;gap:10px}
+h2.sec::after{content:"";flex:1;height:2px;background:var(--sumi)}
+.must{background:var(--kami);border:1px solid var(--line);padding:6px 18px 8px;margin:0;list-style:none}
+.must li{display:flex;flex-wrap:wrap;gap:2px 14px;padding:8px 0;border-bottom:1px dotted #CFC4B2;align-items:baseline}
+.must li:last-child{border-bottom:none}
+.must b{font-weight:700}
+.must span{color:var(--sub);font-size:13px}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.chip{border:1px solid #CFC4B2;background:#fff;padding:4px 13px;border-radius:999px;font-size:13px;font-weight:500}
+.chip[aria-pressed=true]{background:var(--sumi);color:#fff;border-color:var(--sumi)}
+.legend{font-size:12.5px;color:var(--sub);margin:0 0 12px;display:flex;flex-wrap:wrap;gap:4px 16px}
+.legend .sym{margin-right:4px}
+
+.cand{background:var(--kami);border:1px solid var(--line);border-top:4px solid var(--sumi);margin-bottom:16px}
+.cand.v-pass{border-top-color:var(--ok)} .cand.v-hold{border-top-color:var(--kin)} .cand.v-reject{border-top-color:var(--shu)} .cand.v-unreadable{border-top-color:var(--mute)}
+.cand-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:12px 18px 10px;border-bottom:1px solid var(--line)}
+.cid{font-family:var(--disp);font-size:20px;letter-spacing:.04em;line-height:1.2}
+.files{font-size:12.5px;color:var(--sub);overflow-wrap:anywhere;flex:1;min-width:120px}
+.files .err{color:var(--shu-d)}
+.verdict{font-family:var(--disp);font-size:16px;letter-spacing:.08em;padding:4px 16px 5px;border-radius:3px;color:#fff;line-height:1.3}
+.v-error .verdict{background:var(--sumi)} .cand.v-error{border-top-color:var(--sumi)}
+.lack{margin:14px 18px 16px;padding:12px 14px;border:2px solid var(--shu);background:#FDF0EF;color:#6E1A1D}
+.lack p{margin:0 0 10px;font-weight:500}
+.lack strong{font-weight:900;color:var(--shu-d)}
+.lack button{font-size:13px;padding:5px 12px;background:#fff}
+.lack-note{margin:10px 18px 0;font-size:12.5px;color:var(--shu-d);font-weight:700}
+.v-pass .verdict{background:var(--ok)} .v-hold .verdict{background:var(--chk)} .v-reject .verdict{background:var(--shu)} .v-unreadable .verdict{background:var(--mute)}
+.unread{padding:14px 18px;margin:0;color:var(--sub)}
+.conds{list-style:none;margin:0;padding:4px 18px 8px}
+.conds li{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(96px,150px);column-gap:12px;align-items:center;padding:9px 0;border-bottom:1px dotted #CFC4B2}
+.conds li:last-child{border-bottom:none}
+.cl{font-weight:700}
+.cl small{display:block;font-weight:400;color:var(--sub);font-size:12px;line-height:1.5}
+.cs{display:flex;justify-content:center}
+.cv{font-weight:700;font-size:14.5px}
+.cd{grid-column:1 / -1;font-size:12.5px;line-height:1.6;margin-top:3px;padding:4px 10px;border-left:3px solid var(--line);color:var(--sub)}
+li.c-no .cd{border-left-color:var(--shu);background:#FDF0EF;color:#6E1A1D}
+li.c-chk .cd{border-left-color:var(--kin);background:#FBF5E6;color:#5F4510}
+li.c-no .cv{color:var(--shu-d)} li.c-chk .cv{color:var(--chk)}
+.sym{display:inline-block;vertical-align:-3px;flex:none}
+.s-ok{color:var(--ok)} .s-chk{color:var(--chk)} .s-no{color:var(--ng)} .s-na{color:var(--mute)}
+
+details.more{border-top:1px solid var(--line)}
+details.more > summary{cursor:pointer;padding:9px 18px;font-size:13px;font-weight:700;color:var(--sub)}
+details.more[open] > summary{color:var(--sumi)}
+.more-in{padding:2px 18px 18px}
+.hint{font-size:12.5px;color:var(--sub);margin:0 0 10px}
+dl.ro{display:flex;flex-wrap:wrap;gap:6px 28px;margin:0 0 12px;font-size:14px}
+dl.ro div{display:flex;gap:8px;align-items:baseline}
+dl.ro dt{color:var(--sub);font-size:12.5px} dl.ro dd{margin:0;font-weight:700}
 .jobs-wrap{overflow-x:auto}
-table.jobs{border-collapse:collapse;width:100%;min-width:640px;font-size:13px}
-table.jobs th{font-size:12px;color:var(--sub);font-weight:500;text-align:left;padding:2px 6px 4px 0;white-space:nowrap}
-table.jobs td{padding:3px 6px 3px 0;vertical-align:middle}
-table.jobs td.c{text-align:center} table.jobs td.m{white-space:nowrap;color:var(--sub)}
-table.jobs input[type=text]{width:100%;padding:5px 7px}
-table.jobs td.d{width:92px} table.jobs td.ty{width:150px}
-table.jobs select{width:100%;padding:5px 4px}
-table.jobs tr.short td.m{color:var(--reject);font-weight:700}
-.prof .row.btns{margin-top:8px}
-.prof button{padding:5px 12px;font-size:13px}
-.note{font-size:12.5px;color:var(--sub);margin-top:14px;border-left:3px solid var(--hold);padding-left:10px}
-dialog{border:1px solid var(--ink);padding:20px;width:min(640px,92vw);border-radius:2px}
-dialog::backdrop{background:rgba(29,39,48,.45)}
-dialog h3{margin:0 0 6px;font-size:17px}
-dialog textarea{width:100%;height:260px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
-dialog .err{color:var(--reject);font-size:13px;min-height:1.4em;margin:6px 0}
-@media (max-width:820px){
-  .cand-head{grid-template-columns:64px minmax(0,1fr) 34px}
-  .cand-head .counts,.cand-head .fin,.cand-head .memo{grid-column:2 / 3}
-  .cand-head .tog{grid-column:3;grid-row:1}
-  .detail{padding-left:0}
-  table.crit td.l{width:34%}
-  .rgrid{grid-template-columns:minmax(0,1fr)}
-  .rgrid > span{margin-top:6px}
+table.jobs{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px}
+table.jobs th{font-size:12px;color:var(--sub);font-weight:500;text-align:left;padding:4px 10px 4px 0;white-space:nowrap;border-bottom:1px solid var(--sumi)}
+table.jobs td{padding:7px 10px 7px 0;border-bottom:1px dotted #CFC4B2;vertical-align:top}
+table.jobs td.n{white-space:nowrap}
+table.jobs tr.short td.m{color:var(--shu-d);font-weight:700}
+.un{color:var(--chk);font-weight:700}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.note{font-size:12.5px;color:var(--sub);margin-top:16px;border-left:3px solid var(--kin);padding-left:10px}
+.hide{display:none}
+@media (max-width:640px){
+  .band h1{font-size:26px}
+  .drop h2{font-size:22px}
+  .conds li{grid-template-columns:30px minmax(0,1fr);row-gap:2px}
+  .conds .cl{grid-column:1 / -1}
+  .cand-h,.conds,.more-in{padding-left:14px;padding-right:14px}
+  details.more > summary{padding-left:14px}
 }
-@media print{ .step:not(#s3),.exports,.chips,header .local{display:none} body{background:#fff} }
+@media print{ .drop,.under,.actions,.chips,details.more{display:none} body{background:#fff} }
 </style>
 </head>
 <body>
+<header class="band"><div class="band-in">
+  <h1>書類選考チェック</h1>
+  <p>履歴書・職務経歴書を入れると、マスト条件にそって ○ △ × で判定します。</p>
+</div></header>
+
 <div class="wrap">
-  <header class="top">
-    <div>
-      <h1>書類選考スクリーニング</h1>
-      <p>履歴書・職務経歴書を読み込み、求人の条件と照らして一次判定の候補を出します。</p>
-    </div>
-    <div class="local">書類はこのブラウザの中だけで処理します。外部への送信・保存はしません（ページを閉じると消えます）。</div>
-  </header>
-
-  <section class="step" id="s1">
-    <h2><span class="no">一</span>選考基準を決める</h2>
-    <p class="lead">求人ごとに「必須・歓迎・NG」の条件と、探すキーワードを登録します。基準はこのブラウザに保存されます。</p>
-    <div class="row spread posbar">
-      <div class="row">
-        <select id="posSelect" aria-label="求人を選ぶ"></select>
-        <button id="posNew">求人を追加</button>
-        <button id="posDup" class="quiet">複製</button>
-        <button id="posDel" class="quiet danger">削除</button>
-      </div>
-      <div class="row">
-        <button id="jsonIn">基準を取り込む</button>
-        <button id="jsonOut" class="quiet">基準をファイルに書き出す</button>
-      </div>
-    </div>
-    <div class="posname">
-      <label for="posName">求人名</label>
-      <input type="text" id="posName">
-      <label for="holdTh">必須の未充足が</label>
-      <input type="number" id="holdTh" min="0" max="20" style="width:64px">
-      <label for="holdTh">件までは「保留」にする</label>
-    </div>
-    <table class="crit">
-      <thead><tr><th>種別</th><th>条件名</th><th>探すキーワード</th><th></th></tr></thead>
-      <tbody id="critBody"></tbody>
-    </table>
-    <div class="row" style="margin-top:10px"><button id="critAdd">条件を追加</button></div>
-    <p class="hint">キーワードは <code>,</code> 区切りで「どれか1つあれば○」。<code>A+B</code> と書くと「AとBの両方があれば○」。全角・半角、スペース、「一級／1級」の違いは自動で吸収します。</p>
-
-    <details class="rules" id="rulesBox">
-      <summary>経歴ルール<small>年齢・学歴・転職回数・短期離職・ブランク・経験年数・勤務地を、職歴の年月から計算して判定します</small></summary>
-      <label class="ruse"><input type="checkbox" data-r="on">この求人で経歴ルールを使う</label>
-      <div class="rgrid" id="rgrid">
-        <span>年齢</span><div><input type="number" min="0" data-r="ageMax" aria-label="年齢の上限">歳まで</div>
-        <span>学歴</span><div><label><input type="checkbox" data-r="eduHighSchool">高卒以上（中卒・高校中退は不可）</label></div>
-        <span>転職回数の上限</span><div>20代<input type="number" min="0" data-r="ch20" aria-label="20代の上限">回　30代<input type="number" min="0" data-r="ch30" aria-label="30代の上限">回　40代<input type="number" min="0" data-r="ch40" aria-label="40代の上限">回まで</div>
-        <span>短期離職</span><div>在籍<input type="number" min="0" data-r="shortMonths" aria-label="短期離職の月数">ヶ月以内の離職があれば不可</div>
-        <span>ブランク</span><div><input type="number" min="0" data-r="blankMonths" aria-label="ブランクの月数">ヶ月まで（勤務先のあいだ・離職中の期間）</div>
-        <span>経験年数</span><div><input type="number" min="0" data-r="expMonths" aria-label="必要な経験の月数">ヶ月以上（正社員・契約社員としての在籍）</div>
-        <span>経験とみなす職種</span><div><input type="text" data-r="expKeywords" placeholder="例）営業, 接客, 販売" aria-label="経験とみなす職種のキーワード"></div>
-        <span>アルバイトでも経験に数える職種</span><div><input type="text" data-r="baitoOkKeywords" placeholder="例）アパレル" aria-label="アルバイトでも経験に数える職種のキーワード"></div>
-        <span>転職回数・短期離職の数え方</span><div><label><input type="checkbox" data-r="countHaken">派遣も数える</label><label><input type="checkbox" data-r="countBaito">アルバイト・パートも数える</label></div>
-        <span>勤務できる都道府県</span><div><textarea data-r="prefs" placeholder="例）東京都, 神奈川県, 埼玉県, 千葉県" aria-label="勤務できる都道府県"></textarea></div>
-      </div>
-      <p class="hint">空欄の項目は判定しません。年月しか書かれていない書類が多いため、在籍やブランクが上限ちょうどの場合は△（要確認）にします。現住所が対象の都道府県でない場合も△にとどめます。</p>
-    </details>
-  </section>
-
-  <section class="step" id="s2">
-    <h2><span class="no">二</span>書類を読み込む</h2>
-    <p class="lead">PDF・Word（.docx）・Excel・テキストに対応。複数名分をまとめて入れられます。</p>
-    <div class="drop" id="drop" tabindex="0" role="button" aria-label="書類を選ぶ">
-      <strong>ここに書類をドロップ</strong>
-      <span>またはクリックしてファイルを選ぶ</span>
-      <input type="file" id="fileInput" multiple hidden accept=".pdf,.docx,.xlsx,.xls,.xlsm,.txt,.md,.csv">
-    </div>
-    <div class="row opts">
-      <label><input type="checkbox" id="optGroup" checked>同じ人の書類を1名にまとめる（ファイル名から判断）</label>
-      <label><input type="checkbox" id="optShow">氏名・ファイル名を表示する</label>
-    </div>
-    <div id="progress" role="status" aria-live="polite"></div>
-  </section>
-
-  <section class="step" id="s3">
-    <h2><span class="no">三</span>判定結果を確認する</h2>
-    <p class="lead">自動判定はあくまで候補です。根拠の箇所を見て、最終判定を選んでください。</p>
-    <div class="row chips" id="chips"></div>
-    <div id="results"></div>
-    <div class="row exports">
-      <button id="csvOut" class="primary">結果をCSVで書き出す（氏名なし）</button>
-      <button id="mapOut">IDと書類の対応表を書き出す</button>
-      <button id="clearAll" class="quiet danger">読み込んだ書類をすべて消す</button>
-    </div>
-    <p class="note">経歴ルールは、書類から読み取った職歴の年月をもとに計算しています。書式によっては勤務先や年月を拾えない・取り違えることがあるので、候補者を開いて「書類から読み取った経歴」の表を確認し、違っていれば直してください。キーワードの条件は「書類に書かれているか」で見ています。直後に「未経験」「なし」「取得予定」などが続く場合は△（要確認）にしますが、言い回しによっては拾えません。スキャン画像の書類は読めません。通過・見送りの候補も根拠を目視で確認してください。伏せ字は自動処理のため、漏れがあれば候補者ごとの「追加で伏せる語句」に入れてください。</p>
-  </section>
-</div>
-
-<dialog id="dlg">
-  <h3>基準を取り込む</h3>
-  <p class="hint" style="margin:0 0 8px">基準のデータ（JSON）を貼り付けるか、書き出したファイルを選んでください。同じ求人名があれば上書き、なければ追加します。</p>
-  <textarea id="dlgText" spellcheck="false" placeholder='{"name":"求人名","holdThreshold":1,"criteria":[{"type":"must","label":"条件名","keywords":"キーワード1, キーワード2"}]}'></textarea>
-  <div class="err" id="dlgErr"></div>
-  <div class="row" style="justify-content:flex-end">
-    <button id="dlgPick" style="margin-right:auto">書き出したファイルを選ぶ</button>
-    <input type="file" id="dlgFile" accept=".json,application/json" hidden>
-    <button id="dlgCancel" class="quiet">やめる</button>
-    <button id="dlgOk" class="primary">取り込む</button>
+  <div class="drop" id="drop" tabindex="0" role="button" aria-label="書類を選ぶ">
+    <h2>書類アップロード</h2>
+    <p>履歴書と職務経歴書を、両方一緒にここへドロップしてください（PDF・Word・Excel・テキスト）</p>
+    <span class="pick">ファイルを選ぶ</span>
+    <input type="file" id="fileInput" multiple hidden accept=".pdf,.docx,.xlsx,.xls,.xlsm,.txt,.md,.csv">
   </div>
-</dialog>
+  <div class="under">
+    <span id="progress" role="status" aria-live="polite"></span>
+    <label><input type="checkbox" id="optShow">氏名・ファイル名を表示する</label>
+  </div>
+
+  <section id="idle">
+    <h2 class="sec">判定するマスト条件</h2>
+    <ul class="must" id="mustList"></ul>
+  </section>
+
+  <section id="resultSec" class="hide">
+    <h2 class="sec">判定結果</h2>
+    <div class="chips" id="chips"></div>
+    <p class="legend" id="legend"></p>
+    <div id="results"></div>
+    <div class="actions">
+      <button id="clearAll" class="quiet">結果を消す</button>
+    </div>
+  </section>
+
+  <p class="note">書類はこのブラウザの中だけで処理し、外部への送信も保存もしません。次の書類を入れると前の結果は消えます。判定は書類から読み取った年月をもとに計算しています。書類に記載が見つからない項目は「目視確認」と表示します。書式によっては読み違えることもあるので、「読み取った内容を確認する」を開いて書類と見比べてください。スキャン画像の書類は読めません。</p>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
@@ -654,6 +561,25 @@ function extractProfile(text, today){
   return prof;
 }
 
+// その書類が履歴書か職務経歴書か（1つのファイルに両方入っていることもある）
+function docKind(name, text){
+  var n = (name || '').normalize('NFKC').toLowerCase(), t = (text || '').normalize('NFKC');
+  var k = { resume:/履歴書|rirekisho/.test(n), cv:/職務経歴|職歴書|経歴書|shokumu|keireki/.test(n) };
+  t.split('\f').forEach(function(page){
+    var lines = page.split(/\n/).map(function(l){ return l.replace(/[\s■●◆□▼【】\[\]<>《》()]/g, ''); }).filter(Boolean);
+    lines.slice(0, 6).concat(lines.filter(function(l){ return l.length <= 12; })).forEach(function(l){
+      if (/^(職務経歴書|職歴書|経歴書)/.test(l)) k.cv = true;
+      else if (/^履歴書/.test(l)) k.resume = true;
+    });
+  });
+  if (!k.resume && !k.cv){
+    var c = norm(t);
+    if (/職務要約|職務経歴|職務内容|業務内容/.test(c)) k.cv = true;
+    if (/生年月日|ふりがな|現住所/.test(c) && /学歴/.test(c)) k.resume = true;
+  }
+  return k;
+}
+
 function kwHit(keywords, text){
   return parseKeywords(keywords).some(function(k){ return k.parts.every(function(p){ return text.indexOf(p) >= 0; }); });
 }
@@ -673,18 +599,18 @@ function jobMonths(j, now){
 
 function evaluateRules(rules, prof, today){
   var items = [], now = ym(today.y, today.m);
-  function add(label, state, detail){ items.push({ type:'rule', label:label, state:state, detail:detail, met:state === 'ok', doubt:state === 'check', empty:false, hits:[], snippets:[] }); }
+  function add(label, state, detail, short, missing){ items.push({ type:'rule', label:label, state:state, detail:detail, short:short || '', missing:!!missing, met:state === 'ok', doubt:state === 'check', empty:false, hits:[], snippets:[] }); }
   var jobs = (prof.jobs || []).slice().sort(function(a, b){ return (a.start == null ? 1e9 : a.start) - (b.start == null ? 1e9 : b.start); });
-  var age = prof.age, noJobs = '職歴を読み取れませんでした。下の表に入力してください';
+  var age = prof.age, noJobs = '職歴の記載が見つかりません';
   function jn(j){ return j.name || '（勤務先名なし）'; }
 
   var ageMax = numOrNull(rules.ageMax);
   if (ageMax != null){
-    if (age == null) add('年齢', 'check', '年齢を読み取れませんでした');
-    else add('年齢', age <= ageMax ? 'ok' : 'no', age + '歳（' + ageMax + '歳まで）');
+    if (age == null) add('年齢', 'check', '生年月日・年齢の記載が見つかりません', '不明', true);
+    else add('年齢', age <= ageMax ? 'ok' : 'no', age + '歳（' + ageMax + '歳まで）', age + '歳');
   }
   if (rules.eduHighSchool){
-    add('学歴', prof.edu === '高卒以上' ? 'ok' : prof.edu === '中卒・高校中退' ? 'no' : 'check', prof.edu === '不明' ? '学歴を読み取れませんでした' : prof.edu);
+    add('学歴', prof.edu === '高卒以上' ? 'ok' : prof.edu === '中卒・高校中退' ? 'no' : 'check', prof.edu === '不明' ? '学歴（卒業・中退）の記載が見つかりません' : prof.edu, prof.edu === '中卒・高校中退' ? '中卒・中退' : prof.edu, prof.edu === '不明');
   }
 
   var counted = jobs.filter(function(j){
@@ -692,21 +618,21 @@ function evaluateRules(rules, prof, today){
   });
   var ch = [numOrNull(rules.ch20), numOrNull(rules.ch30), numOrNull(rules.ch40)];
   if (ch.some(function(v){ return v != null; })){
-    if (!jobs.length) add('転職回数', 'check', noJobs);
+    if (!jobs.length) add('転職回数', 'check', noJobs, '不明', true);
     else {
       var cnt = Math.max(0, counted.length - 1), base = '転職' + cnt + '回（経験' + counted.length + '社）';
-      if (age == null) add('転職回数', 'check', base + '。年齢が不明のため上限を判定できません');
+      if (age == null) add('転職回数', 'check', base + '。年齢の記載がないため上限を判定できません', cnt + '回', true);
       else {
         var bi = age <= 29 ? 0 : age <= 39 ? 1 : 2, lim = ch[bi], bn = ['20代', '30代', '40代'][bi];
-        if (lim == null) add('転職回数', 'ok', base);
-        else add('転職回数', cnt <= lim ? 'ok' : 'no', base + '／' + bn + 'は' + lim + '回まで');
+        if (lim == null) add('転職回数', 'ok', base, cnt + '回');
+        else add('転職回数', cnt <= lim ? 'ok' : 'no', base + '／' + bn + 'は' + lim + '回まで', cnt + '回');
       }
     }
   }
 
   var sm = numOrNull(rules.shortMonths);
   if (sm != null){
-    if (!jobs.length) add('短期離職', 'check', noJobs);
+    if (!jobs.length) add('短期離職', 'check', noJobs, '不明', true);
     else {
       var bad = [], edge = [], unk = [], min = null;
       counted.forEach(function(j){
@@ -717,17 +643,17 @@ function evaluateRules(rules, prof, today){
         if (T <= sm) bad.push(jn(j) + ' ' + T + 'ヶ月');
         else if (T === sm + 1) edge.push(jn(j) + ' 約' + sm + 'ヶ月');
       });
-      if (bad.length) add('短期離職', 'no', '在籍' + sm + 'ヶ月以内の離職：' + bad.join('、'));
-      else if (edge.length) add('短期離職', 'check', '在籍がちょうど境目です。入退社の日付を確認：' + edge.join('、'));
-      else if (unk.length) add('短期離職', 'check', '退社年月が不明：' + unk.join('、'));
-      else add('短期離職', 'ok', min == null ? '離職歴なし' : '最短の在籍 ' + monthsText(min));
+      if (bad.length) add('短期離職', 'no', '在籍' + sm + 'ヶ月以内の離職：' + bad.join('、'), '最短' + min + 'ヶ月');
+      else if (edge.length) add('短期離職', 'check', '在籍がちょうど境目です。入退社の日付を確認：' + edge.join('、'), '約' + sm + 'ヶ月');
+      else if (unk.length) add('短期離職', 'check', '退社年月の記載がない勤務先があります：' + unk.join('、'), '不明', true);
+      else add('短期離職', 'ok', min == null ? '離職歴なし' : '最短の在籍 ' + monthsText(min), min == null ? 'なし' : monthsText(min));
     }
   }
 
   var bl = numOrNull(rules.blankMonths);
   if (bl != null){
     var dated = jobs.filter(function(j){ return j.start != null; });
-    if (!dated.length) add('ブランク', 'check', noJobs);
+    if (!dated.length) add('ブランク', 'check', noJobs, '不明', true);
     else {
       var maxEnd = null, worst = 0, where = '', unknown = false, working = false;
       dated.forEach(function(j){
@@ -744,16 +670,16 @@ function evaluateRules(rules, prof, today){
         var g2 = now - maxEnd - 1;
         if (g2 > worst){ worst = g2; where = ymText(maxEnd) + '〜現在（離職中）'; }
       }
-      if (worst > bl) add('ブランク', 'no', '約' + worst + 'ヶ月（' + where + '）');
-      else if (worst === bl && bl > 0) add('ブランク', 'check', '約' + worst + 'ヶ月でちょうど境目です。日付を確認（' + where + '）');
-      else if (unknown) add('ブランク', 'check', '退社年月が不明な勤務先があります');
-      else add('ブランク', 'ok', worst > 0 ? '最長 約' + worst + 'ヶ月' : 'ブランクなし');
+      if (worst > bl) add('ブランク', 'no', '約' + worst + 'ヶ月（' + where + '）', '約' + worst + 'ヶ月');
+      else if (worst === bl && bl > 0) add('ブランク', 'check', '約' + worst + 'ヶ月でちょうど境目です。日付を確認（' + where + '）', '約' + worst + 'ヶ月');
+      else if (unknown) add('ブランク', 'check', '退社年月の記載がない勤務先があります', '不明', true);
+      else add('ブランク', 'ok', worst > 0 ? '最長 約' + worst + 'ヶ月' : 'ブランクなし', worst > 0 ? '約' + worst + 'ヶ月' : 'なし');
     }
   }
 
   var ex = numOrNull(rules.expMonths);
   if (ex != null){
-    if (!jobs.length) add('経験年数', 'check', noJobs);
+    if (!jobs.length) add('経験年数', 'check', noJobs, '不明', true);
     else {
       var sum = 0, possible = 0, unkExp = false;
       jobs.forEach(function(j){
@@ -762,17 +688,17 @@ function evaluateRules(rules, prof, today){
         if (f.counted) sum += T;
         if (f.possible) possible += T;
       });
-      if (sum >= ex) add('経験年数', 'ok', '該当する経験 ' + monthsText(sum));
-      else if (!unkExp && possible < ex) add('経験年数', 'no', '対象になりうる在籍の合計が' + monthsText(possible) + '（' + monthsText(ex) + '以上が必要）');
-      else add('経験年数', 'check', '書類から確認できた該当経験は' + monthsText(sum) + '。下の表の「経験に数える」を確認してください');
+      if (sum >= ex) add('経験年数', 'ok', '該当する経験 ' + monthsText(sum), monthsText(sum));
+      else if (!unkExp && possible < ex) add('経験年数', 'no', '対象になりうる在籍の合計が' + monthsText(possible) + '（' + monthsText(ex) + '以上が必要）', monthsText(possible));
+      else add('経験年数', 'check', sum ? '該当する経験と読める記載は' + monthsText(sum) + '分しか見つかりません' : '該当する経験と読める記載が見つかりません', monthsText(sum), true);
     }
   }
 
   var prefs = String(rules.prefs || '').split(/[,、，・\s]+/).map(function(p){ return p.trim().replace(/[都府県]$/, ''); }).filter(Boolean);
   if (prefs.length){
-    if (!prof.pref) add('勤務地', 'check', '現住所の都道府県を読み取れませんでした');
-    else if (prefs.indexOf(prof.pref.replace(/[都府県]$/, '')) >= 0) add('勤務地', 'ok', '現住所：' + prof.pref);
-    else add('勤務地', 'check', '現住所：' + prof.pref + '（対象エリア外。希望勤務地を確認）');
+    if (!prof.pref) add('勤務地', 'check', '現住所の記載が見つかりません', '不明', true);
+    else if (prefs.indexOf(prof.pref.replace(/[都府県]$/, '')) >= 0) add('勤務地', 'ok', '現住所：' + prof.pref, prof.pref);
+    else add('勤務地', 'check', '現住所：' + prof.pref + '（対象エリア外。希望勤務地を確認）', prof.pref);
   }
   return items;
 }
@@ -781,131 +707,47 @@ function evaluateRules(rules, prof, today){
 
 /* ---------- 画面 ---------- */
 (function(){
-  var LS_KEY = 'shorui_screening_v1';
   var CDN = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/';
   var $ = function(id){ return document.getElementById(id); };
   function h(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
 
-  function samplePosition(){
-    return { id:'p-sample', name:'サンプル：施工管理（建築）※実際の求人に差し替えてください', holdThreshold:1, rules:defaultRules(), criteria:[
-      { type:'must', label:'施工管理の実務経験', keywords:'施工管理, 現場監督, 現場代理人' },
-      { type:'must', label:'建築系の資格', keywords:'1級建築施工管理技士, 2級建築施工管理技士, 建築士' },
-      { type:'must', label:'普通自動車免許', keywords:'普通自動車, 普通免許, 自動車免許' },
-      { type:'want', label:'CADの使用経験', keywords:'AutoCAD, Jw_cad, JWCAD, CAD' },
-      { type:'want', label:'マネジメント経験', keywords:'所長, 主任, リーダー, マネジメント' }
-    ]};
+  // ===== マスト条件（ここの数字を変えると判定が変わります） =====
+  var RULES = cleanRules({
+    on: true,
+    ageMax: 49,                 // 年齢の上限
+    eduHighSchool: true,        // 高卒以上
+    ch20: 4, ch30: 5, ch40: 6,  // 転職回数の上限（20代・30代・40代）
+    shortMonths: 6,             // 在籍がこの月数以内の離職があると不可
+    blankMonths: 6,             // ブランクの上限（月）
+    expMonths: 12,              // 必要な経験（月）
+    expKeywords: '営業, 接客, 販売, セールス, 店長, 店舗運営, 窓口, ホールスタッフ, カウンター',
+    baitoOkKeywords: 'アパレル, キャバクラ, ホストクラブ, ラウンジ, ガールズバー, スナック, ナイトワーク',
+    countHaken: true,           // 派遣を転職回数・短期離職に数える
+    countBaito: false,          // アルバイト・パートを転職回数・短期離職に数える
+    prefs: '東京都, 神奈川県, 埼玉県, 千葉県, 北海道, 青森県, 岩手県, 秋田県, 福島県, 茨城県, 栃木県, 石川県, 福井県, 岐阜県, 愛知県, 三重県, 滋賀県, 大阪府, 兵庫県, 奈良県, 岡山県, 広島県, 山口県, 愛媛県, 福岡県, 佐賀県, 長崎県'
+  });
+  var POS = { name:'書類選考', holdThreshold:0, criteria:[], rules:RULES };
+  // 表示する順番と文言
+  var CONDS = [
+    ['経験年数', '営業・接客販売の経験 1年以上', '正社員・契約社員としての在籍。アルバイトは数えません（アパレル接客・夜職を除く）'],
+    ['学歴', '高卒以上', '中卒・高校中退は不可'],
+    ['年齢', '年齢 49歳まで', ''],
+    ['転職回数', '転職回数', '20代は4回・30代は5回・40代は6回まで'],
+    ['短期離職', '短期離職なし', '在籍6ヶ月以内の離職があると不可'],
+    ['ブランク', 'ブランク 6ヶ月まで', ''],
+    ['勤務地', '勤務地', '対象27都道府県。現住所がエリア外のときは△'],
+  ];
+  var VLABEL = { pass:'通過', hold:'目視確認', reject:'見送り', unreadable:'読取不可', error:'書類不足' };
+
+  var state = { cands:[], filter:'all', show:false };
+
+  var SYM = { ok:['○', '<circle cx="12" cy="12" r="8.5"/>'], chk:['△', '<path d="M12 3.5 21.5 20.5H2.5Z" stroke-linejoin="round"/>'],
+              no:['×', '<path d="M5.5 5.5 18.5 18.5M18.5 5.5 5.5 18.5" stroke-linecap="round"/>'], na:['－', '<path d="M6 12H18" stroke-linecap="round"/>'] };
+  function sym(kind, size){
+    return '<svg class="sym s-' + kind + '" role="img" aria-label="' + SYM[kind][0] + '" viewBox="0 0 24 24" width="' + size + '" height="' + size + '" fill="none" stroke="currentColor" stroke-width="3">' + SYM[kind][1] + '</svg>';
   }
 
-  var state = { positions:[], current:null, cands:[], seq:0, filter:'all', show:false, group:true };
-
-  function load(){
-    try {
-      var j = JSON.parse(localStorage.getItem(LS_KEY));
-      if (j && Array.isArray(j.positions) && j.positions.length){ state.positions = j.positions; state.current = j.current; }
-    } catch(e){}
-    if (!state.positions.length) state.positions = [samplePosition()];
-    state.positions.forEach(function(p){ p.rules = cleanRules(p.rules); if (!Array.isArray(p.criteria)) p.criteria = []; });
-    if (!pos()) state.current = state.positions[0].id;
-  }
-  function save(){ try { localStorage.setItem(LS_KEY, JSON.stringify({ positions:state.positions, current:state.current })); } catch(e){} }
-  function pos(){ return state.positions.filter(function(p){ return p.id === state.current; })[0]; }
-
-  /* --- 一：基準 --- */
-  function renderPos(){
-    $('posSelect').innerHTML = state.positions.map(function(p){ return '<option value="' + h(p.id) + '"' + (p.id === state.current ? ' selected' : '') + '>' + h(p.name) + '</option>'; }).join('');
-    var p = pos();
-    $('posName').value = p.name;
-    $('holdTh').value = p.holdThreshold;
-    $('critBody').innerHTML = p.criteria.map(function(c, i){
-      return '<tr data-i="' + i + '" data-type="' + h(c.type) + '">' +
-        '<td class="t"><select data-f="type" aria-label="種別">' + ['must', 'want', 'ng'].map(function(t){ return '<option value="' + t + '"' + (c.type === t ? ' selected' : '') + '>' + TYPE[t] + '</option>'; }).join('') + '</select></td>' +
-        '<td class="l"><input type="text" data-f="label" value="' + h(c.label) + '" placeholder="例）施工管理の実務経験" aria-label="条件名"></td>' +
-        '<td><input type="text" data-f="keywords" value="' + h(c.keywords) + '" placeholder="例）施工管理, 現場監督" aria-label="探すキーワード"></td>' +
-        '<td class="x"><button class="xbtn" data-del="' + i + '" aria-label="この条件を削除" title="削除">×</button></td></tr>';
-    }).join('');
-    var R = p.rules;
-    Array.prototype.forEach.call($('rulesBox').querySelectorAll('[data-r]'), function(el){
-      var k = el.getAttribute('data-r');
-      if (el.type === 'checkbox') el.checked = !!R[k]; else el.value = R[k] == null ? '' : R[k];
-    });
-    $('rulesBox').open = !!R.on;
-    $('rgrid').classList.toggle('off', !R.on);
-  }
-  $('rulesBox').addEventListener('input', function(e){
-    var k = e.target.getAttribute('data-r'); if (!k) return;
-    var R = pos().rules;
-    R[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.type === 'number' ? (e.target.value === '' ? '' : Math.max(0, Math.floor(+e.target.value) || 0)) : e.target.value;
-    if (k === 'on') $('rgrid').classList.toggle('off', !R.on);
-    criteriaChanged();
-  });
-  var reTimer;
-  function criteriaChanged(){ save(); clearTimeout(reTimer); reTimer = setTimeout(reEvaluateAll, 250); }
-
-  $('posSelect').addEventListener('change', function(e){ state.current = e.target.value; save(); renderPos(); reEvaluateAll(); });
-  $('posName').addEventListener('input', function(e){ pos().name = e.target.value; save(); var o = $('posSelect').selectedOptions && $('posSelect').selectedOptions[0]; if (o) o.textContent = e.target.value; });
-  $('holdTh').addEventListener('input', function(e){ pos().holdThreshold = Math.max(0, parseInt(e.target.value, 10) || 0); criteriaChanged(); });
-  $('posNew').addEventListener('click', function(){
-    var p = { id:'p' + Date.now().toString(36), name:'新しい求人', holdThreshold:1, rules:defaultRules(), criteria:[{ type:'must', label:'', keywords:'' }] };
-    state.positions.push(p); state.current = p.id; save(); renderPos(); reEvaluateAll(); $('posName').focus(); $('posName').select();
-  });
-  $('posDup').addEventListener('click', function(){
-    var p = JSON.parse(JSON.stringify(pos())); p.id = 'p' + Date.now().toString(36); p.name += '（コピー）';
-    state.positions.push(p); state.current = p.id; save(); renderPos(); reEvaluateAll();
-  });
-  $('posDel').addEventListener('click', function(){
-    if (!confirm('「' + pos().name + '」の基準を削除します。元に戻せません。')) return;
-    state.positions = state.positions.filter(function(p){ return p.id !== state.current; });
-    if (!state.positions.length) state.positions = [samplePosition()];
-    state.current = state.positions[0].id; save(); renderPos(); reEvaluateAll();
-  });
-  $('critAdd').addEventListener('click', function(){
-    pos().criteria.push({ type:'must', label:'', keywords:'' }); save(); renderPos();
-    var ins = $('critBody').querySelectorAll('input[data-f=label]'); if (ins.length) ins[ins.length - 1].focus();
-  });
-  $('critBody').addEventListener('input', function(e){
-    var tr = e.target.closest('tr'), f = e.target.getAttribute('data-f'); if (!tr || !f) return;
-    pos().criteria[+tr.getAttribute('data-i')][f] = e.target.value;
-    if (f === 'type') tr.setAttribute('data-type', e.target.value);
-    criteriaChanged();
-  });
-  $('critBody').addEventListener('click', function(e){
-    var b = e.target.closest('[data-del]'); if (!b) return;
-    pos().criteria.splice(+b.getAttribute('data-del'), 1); save(); renderPos(); reEvaluateAll();
-  });
-
-  /* JSON 取り込み・書き出し */
-  var dlg = $('dlg');
-  $('jsonIn').addEventListener('click', function(){ $('dlgText').value = ''; $('dlgErr').textContent = ''; if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); $('dlgText').focus(); });
-  function closeDlg(){ if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
-  $('dlgCancel').addEventListener('click', closeDlg);
-  $('dlgPick').addEventListener('click', function(){ $('dlgFile').click(); });
-  $('dlgFile').addEventListener('change', function(e){
-    var f = e.target.files[0]; if (!f) return;
-    f.text().then(function(t){ $('dlgText').value = t; $('dlgErr').textContent = ''; });
-    e.target.value = '';
-  });
-  $('dlgOk').addEventListener('click', function(){
-    var txt = $('dlgText').value.trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim(), list;
-    try { list = normalizePositions(JSON.parse(txt)); } catch(e){ $('dlgErr').textContent = 'JSONとして読めませんでした。貼り付けた内容を確認してください。'; return; }
-    if (!list.length){ $('dlgErr').textContent = '基準（criteria）が見つかりませんでした。'; return; }
-    importPositions(list); closeDlg();
-  });
-  function importPositions(list){
-    list.forEach(function(p){
-      var ex = state.positions.filter(function(q){ return q.name === p.name; })[0];
-      if (ex){ ex.criteria = p.criteria; ex.holdThreshold = p.holdThreshold; ex.rules = p.rules; state.current = ex.id; }
-      else { state.positions.push(p); state.current = p.id; }
-    });
-    state.positions = state.positions.filter(function(p){ return p.id !== 'p-sample' || state.positions.length === 1; });
-    if (!pos()) state.current = state.positions[0].id;
-    save(); renderPos(); reEvaluateAll();
-  }
-  $('jsonOut').addEventListener('click', function(){
-    var p = pos();
-    download('基準_' + p.name.replace(/[\\/:*?"<>|\s]+/g, '_') + '.json', JSON.stringify({ name:p.name, holdThreshold:p.holdThreshold, criteria:p.criteria, rules:p.rules }, null, 2), 'application/json');
-  });
-
-  /* --- 二：読み込み --- */
+  /* --- 読み込み --- */
   async function readPdf(buf){
     if (typeof pdfjsLib === 'undefined') throw new Error('PDFを読む部品を取得できませんでした。ネット接続を確認して再読み込みしてください。');
     pdfjsLib.GlobalWorkerOptions.workerSrc = CDN + 'build/pdf.worker.min.js';
@@ -926,7 +768,7 @@ function evaluateRules(rules, prof, today){
       });
       out.push(s);
     }
-    return out.join('\n');
+    return out.join('\n\f\n');
   }
   function decodeText(buf){
     try { return new TextDecoder('utf-8', { fatal:true }).decode(buf); }
@@ -954,200 +796,174 @@ function evaluateRules(rules, prof, today){
     throw new Error('対応していない形式です（PDF・.docx・Excel・テキストに対応）。');
   }
 
-  function addDocument(name, text, error){
-    var key = fileKey(name), c = null;
-    if (state.group && key) c = state.cands.filter(function(x){ return x.key === key; })[0];
-    if (!c){
-      state.seq++;
-      c = { id:'C-' + String(state.seq).padStart(3, '0'), key:key, files:[], raw:'', extra:'', final:'', memo:'', open:false };
-      state.cands.push(c);
+  // 読み込んだ書類を、人ごとにまとめる（ファイル名の氏名 → 書類内の氏名 → 履歴書と職務経歴書の組）
+  function buildCandidates(docs){
+    var groups = [];
+    docs.forEach(function(d){
+      d.key = fileKey(d.name);
+      d.kind = docKind(d.name, d.text);
+      d.person = detectNames(d.text, '')[0] || '';
+      var g = groups.filter(function(x){
+        return (d.key && (x.keys.indexOf(d.key) >= 0)) || (d.person && (x.keys.indexOf(d.person) >= 0));
+      })[0];
+      if (!g){ g = { keys:[], docs:[] }; groups.push(g); }
+      [d.key, d.person].forEach(function(k){ if (k && g.keys.indexOf(k) < 0) g.keys.push(k); });
+      g.docs.push(d);
+    });
+    function has(g, kind){ return g.docs.some(function(d){ return d.kind[kind]; }); }
+    function person(g){ return g.docs.map(function(d){ return d.person; }).filter(Boolean)[0] || ''; }
+    // 履歴書だけの人と職務経歴書だけの人が1組ずつ残ったら、同じ人として扱う
+    var onlyR = groups.filter(function(g){ return has(g, 'resume') && !has(g, 'cv'); });
+    var onlyC = groups.filter(function(g){ return has(g, 'cv') && !has(g, 'resume'); });
+    if (onlyR.length === 1 && onlyC.length === 1 && !(person(onlyR[0]) && person(onlyC[0]) && person(onlyR[0]) !== person(onlyC[0]))){
+      onlyR[0].docs = onlyR[0].docs.concat(onlyC[0].docs);
+      onlyR[0].keys = onlyR[0].keys.concat(onlyC[0].keys);
+      groups.splice(groups.indexOf(onlyC[0]), 1);
     }
-    c.files.push({ name:name, error:error || '' });
-    if (text) c.raw += (c.raw ? '\n\n' : '') + text;
-    refresh(c);
-    return c;
+    state.cands = groups.map(function(g, i){
+      var c = { id:'C-' + String(i + 1).padStart(3, '0'), key:person(g) || g.keys[0] || '', open:false, force:false,
+        files:g.docs.map(function(d){ return { name:d.name, error:d.error, kind:d.kind, empty:!d.error && norm(d.text).length < 30 }; }),
+        raw:g.docs.map(function(d){ return d.text; }).filter(Boolean).join('\n\n'),
+        has:{ resume:has(g, 'resume'), cv:has(g, 'cv') } };
+      refresh(c);
+      return c;
+    });
   }
   function refresh(c){
-    var extra = (c.extra || '').split(/[,、，]/).map(function(s){ return s.trim(); }).filter(Boolean);
+    var extra = [], today = todayObj();
     c.names = detectNames(c.raw, c.key);
-    c.extraList = extra;
     c.masked = maskText(c.raw, c.names, extra);
-    var today = todayObj();
-    if (!c.edited || !c.profile) c.profile = extractProfile(c.raw, today);
+    c.profile = extractProfile(c.raw, today);
     c.profile.jobs.sort(function(a, b){ return (a.start == null ? 1e9 : a.start) - (b.start == null ? 1e9 : b.start); });
     var prof = { age:c.profile.age, edu:c.profile.edu, pref:c.profile.pref,
       jobs:c.profile.jobs.map(function(j){ var o = {}; for (var k in j) o[k] = j[k]; o.name = maskNames(j.name || '', c.names, extra); return o; }) };
-    c.result = evaluate(pos(), c.raw, state.show ? c.raw : c.masked, prof, today);
+    c.result = evaluate(POS, c.raw, state.show ? c.raw : c.masked, prof, today);
   }
-  function reEvaluateAll(){ state.cands.forEach(refresh); renderResults(); }
 
   async function handleFiles(files){
     var list = Array.prototype.slice.call(files);
+    state.cands = []; state.filter = 'all';   // 前の結果は残さない
+    var docs = [];
     for (var i = 0; i < list.length; i++){
       $('progress').textContent = '読み込み中… ' + (i + 1) + ' / ' + list.length;
-      try { addDocument(list[i].name, await readFile(list[i]), ''); }
-      catch(e){ addDocument(list[i].name, '', (e && e.message) || '読み込めませんでした'); }
+      try { docs.push({ name:list[i].name, text:(await readFile(list[i])) || '', error:'' }); }
+      catch(e){ docs.push({ name:list[i].name, text:'', error:(e && e.message) || '読み込めませんでした' }); }
     }
-    $('progress').textContent = list.length + '件の書類を読み込みました（合計 ' + state.cands.length + '名）。';
-    renderResults();
+    buildCandidates(docs);
+    var lack = state.cands.filter(function(c){ return viewOf(c) === 'error'; }).length;
+    $('progress').textContent = list.length + '件の書類を読み込みました（' + state.cands.length + '名）' + (lack ? '。書類が足りない人がいます' : '');
+    render();
+    $('resultSec').scrollIntoView({ behavior:'smooth', block:'start' });
   }
   var drop = $('drop'), fi = $('fileInput');
   drop.addEventListener('click', function(){ fi.click(); });
   drop.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fi.click(); } });
+  fi.addEventListener('click', function(e){ e.stopPropagation(); });
   fi.addEventListener('change', function(){ if (fi.files.length) handleFiles(fi.files); fi.value = ''; });
   ['dragenter', 'dragover'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('over'); }); });
   ['dragleave', 'drop'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
   drop.addEventListener('drop', function(e){ if (e.dataTransfer && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
-  $('optGroup').addEventListener('change', function(e){ state.group = e.target.checked; });
-  $('optShow').addEventListener('change', function(e){ state.show = e.target.checked; reEvaluateAll(); });
+  window.addEventListener('dragover', function(e){ e.preventDefault(); });
+  window.addEventListener('drop', function(e){ e.preventDefault(); });
+  $('optShow').addEventListener('change', function(e){ state.show = e.target.checked; state.cands.forEach(refresh); render(); });
 
-  /* --- 三：結果 --- */
-  function eff(c){ return c.final || c.result.verdict; }
-  function renderResults(){
-    var counts = { all:state.cands.length, pass:0, hold:0, reject:0, unreadable:0 };
-    state.cands.forEach(function(c){ counts[eff(c)]++; });
-    var chipDefs = [['all', 'すべて'], ['pass', '通過'], ['hold', '保留'], ['reject', '見送り'], ['unreadable', '読取不可']];
-    $('chips').innerHTML = chipDefs.map(function(d){ return '<button class="chip" data-filter="' + d[0] + '" aria-pressed="' + (state.filter === d[0]) + '">' + d[1] + ' ' + counts[d[0]] + '</button>'; }).join('');
-    var shown = state.cands.filter(function(c){ return state.filter === 'all' || eff(c) === state.filter; });
-    if (!state.cands.length){ $('results').innerHTML = '<div class="empty">まだ書類がありません。上の「二」で履歴書・職務経歴書を読み込むと、ここに判定が並びます。</div>'; return; }
-    if (!shown.length){ $('results').innerHTML = '<div class="empty">この判定の候補者はいません。</div>'; return; }
-    $('results').innerHTML = shown.map(candHtml).join('');
+  /* --- 表示 --- */
+  function itemOf(c, key){ return c.result.items.filter(function(i){ return i.type === 'rule' && i.label === key; })[0]; }
+  // 履歴書と職務経歴書がそろっていないときはエラーにする
+  function lackMsg(c){
+    if (c.has.resume && c.has.cv) return '';
+    var bad = c.files.some(function(f){ return f.error || f.empty; });
+    var m = !c.has.resume && !c.has.cv ? '履歴書と職務経歴書のどちらも確認できません。'
+          : !c.has.cv ? '職務経歴書がアップロードされていません。' : '履歴書がアップロードされていません。';
+    return m + '履歴書と職務経歴書を一緒に入れ直してください。' + (bad ? '（文字を読み取れない書類が含まれています。スキャン画像の書類は判別できません）' : '');
+  }
+  function viewOf(c){ return (lackMsg(c) && !c.force) ? 'error' : c.result.verdict; }
+  function render(){
+    var has = state.cands.length > 0;
+    $('idle').classList.toggle('hide', has);
+    $('resultSec').classList.toggle('hide', !has);
+    if (!has) return;
+    var counts = { all:state.cands.length, pass:0, hold:0, reject:0, unreadable:0, error:0 };
+    state.cands.forEach(function(c){ counts[viewOf(c)]++; });
+    $('chips').classList.toggle('hide', state.cands.length < 2);
+    $('chips').innerHTML = [['all', 'すべて'], ['pass', '通過'], ['hold', '目視確認'], ['reject', '見送り'], ['error', '書類不足'], ['unreadable', '読取不可']].map(function(d){
+      return (d[0] !== 'all' && !counts[d[0]] && state.filter !== d[0]) ? '' : '<button class="chip" data-filter="' + d[0] + '" aria-pressed="' + (state.filter === d[0]) + '">' + d[1] + ' ' + counts[d[0]] + '</button>';
+    }).join('');
+    var shown = state.cands.filter(function(c){ return state.filter === 'all' || viewOf(c) === state.filter; });
+    $('results').innerHTML = shown.length ? shown.map(candHtml).join('') : '<p class="unread">この判定の人はいません。</p>';
+  }
+  function condHtml(c, def){
+    var i = itemOf(c, def[0]); if (!i) return '';
+    var k = i.met ? 'ok' : i.doubt ? 'chk' : 'no';
+    var val = i.missing ? '目視確認' : i.short;
+    var detail = i.missing ? i.detail + '。書類を目視で確認してください。' : i.doubt ? i.detail + '。目視で確認してください。' : i.detail;
+    if (def[0] === '経験年数') detail = detail.replace('該当する経験', '営業・接客販売の経験').replace('対象になりうる在籍', '正社員・契約社員としての在籍');
+    return '<li class="c-' + k + (i.missing ? ' c-miss' : '') + '"><span class="cl">' + h(def[1]) + (def[2] && k !== 'ok' ? '<small>' + h(def[2]) + '</small>' : '') + '</span>' +
+      '<span class="cs">' + sym(k, 24) + '</span><span class="cv">' + h(val) + '</span>' +
+      (k !== 'ok' ? '<span class="cd">' + h(detail) + '</span>' : '') + '</li>';
   }
   function profHtml(c){
-    var p = c.profile, R = pos().rules, t = todayObj(), now = ym(t.y, t.m), sm = numOrNull(R.shortMonths);
-    var rows = p.jobs.map(function(j, i){
-      var f = jobFlags(R, j), T = jobMonths(j, now), nm = state.show ? (j.name || '') : maskNames(j.name || '', c.names, c.extraList);
-      return '<tr data-ji="' + i + '"' + (sm != null && !j.current && T != null && T <= sm ? ' class="short"' : '') + '>' +
-        '<td><input type="text" data-j="name" value="' + h(nm) + '" aria-label="勤務先"></td>' +
-        '<td class="d"><input type="text" data-j="start" value="' + ymText(j.start) + '" placeholder="2020/04" inputmode="numeric" aria-label="入社年月"></td>' +
-        '<td class="d"><input type="text" data-j="end" value="' + (j.current ? '' : ymText(j.end)) + '" placeholder="' + (j.current ? '在職中' : '2023/03') + '"' + (j.current ? ' disabled' : '') + ' inputmode="numeric" aria-label="退社年月"></td>' +
-        '<td class="c"><input type="checkbox" data-j="current"' + (j.current ? ' checked' : '') + ' aria-label="在職中"></td>' +
-        '<td class="ty"><select data-j="type" aria-label="雇用形態">' + JOB_TYPES.map(function(ty){ return '<option value="' + ty + '"' + (j.type === ty ? ' selected' : '') + '>' + ty + (j.typeGuess && j.type === ty ? '（推定）' : '') + '</option>'; }).join('') + '</select></td>' +
-        '<td class="c"><input type="checkbox" data-j="count"' + (f.counted ? ' checked' : '') + ' aria-label="経験に数える"></td>' +
-        '<td class="m">' + (T == null ? '—' : monthsText(T)) + '</td>' +
-        '<td><button class="xbtn" data-jobdel aria-label="この勤務先を削除" title="削除">×</button></td></tr>';
+    var p = c.profile, t = todayObj(), now = ym(t.y, t.m), sm = numOrNull(RULES.shortMonths);
+    function nm(j){ return state.show ? (j.name || '') : maskNames(j.name || '', c.names, []); }
+    var UN = '<span class="un">不明</span>';
+    var rows = p.jobs.map(function(j){
+      var f = jobFlags(RULES, j), T = jobMonths(j, now);
+      return '<tr' + (sm != null && !j.current && T != null && T <= sm ? ' class="short"' : '') + '>' +
+        '<td>' + (h(nm(j)) || '（勤務先名なし）') + '</td>' +
+        '<td class="n">' + (j.start == null ? UN : ymText(j.start)) + '</td>' +
+        '<td class="n">' + (j.current ? '在職中' : j.end == null ? UN : ymText(j.end)) + '</td>' +
+        '<td class="n">' + h(j.type) + (j.typeGuess ? '（推定）' : '') + '</td>' +
+        '<td class="n">' + (f.counted ? '数える' : '－') + '</td>' +
+        '<td class="n m">' + (T == null ? '—' : monthsText(T)) + '</td></tr>';
     }).join('');
-    return '<div class="prof"><div class="prof-h">書類から読み取った経歴 <span>違っていたら直してください。判定がその場で変わります。</span></div>' +
-      '<div class="row prof-top">' +
-        '<label>年齢<input type="number" min="0" max="99" data-p="age" value="' + (p.age == null ? '' : p.age) + '">歳</label>' +
-        '<label>最終学歴<select data-p="edu">' + EDU_OPTS.map(function(o){ return '<option' + (p.edu === o ? ' selected' : '') + '>' + o + '</option>'; }).join('') + '</select></label>' +
-        '<label>現住所<select data-p="pref"><option value="">不明</option>' + PREF_LIST.map(function(o){ return '<option' + (p.pref === o ? ' selected' : '') + '>' + o + '</option>'; }).join('') + '</select></label>' +
-      '</div><div class="jobs-wrap"><table class="jobs"><thead><tr><th>勤務先</th><th>入社</th><th>退社</th><th>在職中</th><th>雇用形態</th><th>経験に数える</th><th>在籍</th><th></th></tr></thead><tbody>' +
-      (rows || '<tr><td colspan="8" class="m">職歴を読み取れませんでした。「勤務先を追加」から入力してください。</td></tr>') + '</tbody></table></div>' +
-      '<div class="row btns"><button data-jobadd>勤務先を追加</button>' + (c.edited ? '<button data-reread class="quiet">書類から読み取り直す</button>' : '') + '</div></div>';
+    return '<p class="hint">書類からこう読み取りました。書類と違っている場合、その項目の判定は当てになりません。</p>' +
+      '<dl class="ro"><div><dt>年齢</dt><dd>' + (p.age == null ? UN : p.age + '歳') + '</dd></div>' +
+      '<div><dt>最終学歴</dt><dd>' + (p.edu === '不明' ? UN : h(p.edu)) + '</dd></div>' +
+      '<div><dt>現住所</dt><dd>' + (p.pref ? h(p.pref) : UN) + '</dd></div></dl>' +
+      '<div class="jobs-wrap"><table class="jobs"><thead><tr><th>勤務先</th><th>入社</th><th>退社</th><th>雇用形態</th><th>経験に数える</th><th>在籍</th></tr></thead><tbody>' +
+      (rows || '<tr><td colspan="6" class="un">職歴を読み取れませんでした。</td></tr>') + '</tbody></table></div>';
   }
   function candHtml(c){
-    var r = c.result, v = eff(c);
-    var files = c.files.map(function(f, i){
-      var n = state.show ? f.name : '書類' + (i + 1) + '（' + (f.name.split('.').pop() || '').toLowerCase() + '）';
-      return h(n) + (f.error ? ' <span class="no">※' + h(f.error) + '</span>' : '');
+    var r = c.result, v = viewOf(c), lack = lackMsg(c);
+    var files = c.files.map(function(f){
+      var kind = f.kind.resume && f.kind.cv ? '履歴書＋職務経歴書' : f.kind.resume ? '履歴書' : f.kind.cv ? '職務経歴書' : '種類不明';
+      var ext = (f.name.split('.').pop() || '').toLowerCase();
+      return h(state.show ? f.name + '［' + kind + '］' : kind + '（' + ext + '）') + (f.error ? ' <span class="err">※' + h(f.error) + '</span>' : f.empty ? ' <span class="err">※文字を読み取れません</span>' : '');
     }).join('、');
-    var stamp = c.final ? { pass:'通過', hold:'保留', reject:'見送' }[c.final] : STAMP[r.verdict];
-    var html = '<div class="cand" data-id="' + c.id + '"><div class="cand-head">' +
-      '<div class="stamp v-' + v + '" title="' + h(c.final ? '最終判定' : '自動判定：' + VERDICT[r.verdict]) + '">' + Array.from(stamp).map(function(ch){ return '<span>' + ch + '</span>'; }).join('') + '</div>' +
-      '<div><div class="cid">' + c.id + (state.show && c.key ? '　' + h(c.key) : '') + '</div><div class="files">' + files + '</div><div class="reason">' + h(r.reason) + '</div></div>' +
-      '<div class="counts">必須 <b>' + r.must.met + '</b>/' + r.must.total + (r.want.total ? '　歓迎 <b>' + r.want.met + '</b>/' + r.want.total : '') + (r.ng.length ? '<br><span class="ng">NG <b>' + r.ng.length + '</b>件</span>' : '') + (r.check.length ? '<br><span class="dbt">要確認 <b>' + r.check.length + '</b>件</span>' : '') + '</div>' +
-      '<div class="fin"><select data-f="final" aria-label="最終判定"><option value="">最終判定</option>' + ['pass', 'hold', 'reject'].map(function(k){ return '<option value="' + k + '"' + (c.final === k ? ' selected' : '') + '>' + VERDICT_FINAL[k] + '</option>'; }).join('') + '</select></div>' +
-      '<div class="memo"><input type="text" data-f="memo" value="' + h(c.memo) + '" placeholder="メモ" aria-label="メモ"></div>' +
-      '<button class="tog" data-toggle aria-expanded="' + c.open + '" aria-label="根拠を開く">' + (c.open ? '▲' : '▼') + '</button></div>';
-    if (c.open){
-      html += '<div class="detail">' + (pos().rules.on && c.raw ? profHtml(c) : '') + '<table class="chk"><thead><tr><th>種別</th><th>条件</th><th>結果</th><th>根拠</th></tr></thead><tbody>' +
-        (r.items.length ? r.items.map(function(i){
-          var res = i.empty ? '<span class="na">－</span>' : i.doubt ? '<span class="dbt">' + (i.type === 'ng' ? '要確認' : '△') + '</span>' : (i.type === 'ng' ? (i.met ? '<span class="no">該当</span>' : '<span class="ok">なし</span>') : (i.met ? '<span class="ok">○</span>' : '<span class="no">×</span>'));
-          var ev = i.type === 'rule' ? '<span class="snip">' + h(i.detail) + '</span>' : i.empty ? '<span class="snip">キーワード未設定</span>' : (i.snippets.length ? i.snippets.map(function(s){
-            return s.hidden ? '<span class="snip">「' + h(s.match) + '」（伏せ字の範囲内）</span>' : '<span class="snip">…' + h(s.before) + '<mark>' + h(s.match) + '</mark>' + h(s.after) + '…</span>';
-          }).join('') : '<span class="snip">該当する記載なし</span>');
-          return '<tr><td class="k">' + TYPE[i.type] + '</td><td>' + h(i.label) + '</td><td class="r">' + res + '</td><td>' + ev + '</td></tr>';
-        }).join('') : '<tr><td colspan="4" class="na">条件がまだありません。</td></tr>') + '</tbody></table>' +
-        '<div class="extra"><label>追加で伏せる語句<input type="text" data-f="extra" value="' + h(c.extra) + '" placeholder="例）山田, ヤマダ（, 区切り）"></label></div>' +
-        (c.raw ? '<details class="raw"><summary>読み取った文章を見る' + (state.show ? '' : '（伏せ字済み）') + '</summary><pre>' + h(state.show ? c.raw.normalize('NFKC') : c.masked) + '</pre></details>' : '') + '</div>';
+    var body;
+    if (v === 'error'){
+      body = '<div class="lack"><p><strong>エラー：</strong>' + h(lack) + '</p><button class="quiet" data-force>このまま片方だけで判定を見る</button></div>';
+    } else if (v === 'unreadable'){
+      body = '<p class="unread">文字を読み取れませんでした（スキャン画像の可能性があります）。この書類は目視で確認してください。</p>';
+    } else {
+      body = (lack ? '<p class="lack-note">※ ' + h(lack.split('。')[0]) + '。片方の書類だけで判定しています。</p>' : '') +
+        '<ul class="conds">' + CONDS.map(function(d){ return condHtml(c, d); }).join('') + '</ul>' +
+        '<details class="more"' + (c.open ? ' open' : '') + '><summary>読み取った内容を確認する</summary><div class="more-in">' + profHtml(c) + '</div></details>';
     }
-    return html + '</div>';
+    return '<article class="cand v-' + v + '" data-id="' + c.id + '"><div class="cand-h"><span class="cid">' + c.id + '</span>' +
+      '<span class="files">' + (state.show && c.key ? h(c.key) + '　' : '') + files + '</span><span class="verdict">' + VLABEL[v] + '</span></div>' + body + '</article>';
   }
+
+  /* --- 操作 --- */
   function candOf(el){ var d = el.closest('.cand'); return d && state.cands.filter(function(c){ return c.id === d.getAttribute('data-id'); })[0]; }
-  $('chips').addEventListener('click', function(e){ var b = e.target.closest('[data-filter]'); if (!b) return; state.filter = b.getAttribute('data-filter'); renderResults(); });
-  // 描き直しても、いま触っている入力欄にカーソルを戻す
-  function keyOf(el){
-    if (!el || !el.closest) return null;
-    var cd = el.closest('.cand'); if (!cd) return null;
-    var tr = el.closest('tr[data-ji]');
-    return { id:cd.getAttribute('data-id'), ji:tr ? tr.getAttribute('data-ji') : null,
-      a:['data-j', 'data-p', 'data-f'].map(function(n){ return el.getAttribute(n) ? '[' + n + '="' + el.getAttribute(n) + '"]' : ''; }).join('') };
-  }
-  function rerender(){
-    setTimeout(function(){
-      var k = keyOf(document.activeElement);
-      renderResults();
-      if (!k || !k.a) return;
-      var el = document.querySelector('.cand[data-id="' + k.id + '"] ' + (k.ji != null ? 'tr[data-ji="' + k.ji + '"] ' : '') + k.a);
-      if (el && !el.disabled) el.focus();
-    }, 0);
-  }
+  $('chips').addEventListener('click', function(e){ var b = e.target.closest('[data-filter]'); if (!b) return; state.filter = b.getAttribute('data-filter'); render(); });
   $('results').addEventListener('click', function(e){
-    var c = candOf(e.target); if (!c) return;
-    if (e.target.closest('[data-toggle]')){ c.open = !c.open; renderResults(); return; }
-    if (e.target.closest('[data-jobadd]')){
-      c.profile.jobs.push({ name:'', start:null, end:null, current:false, type:'正社員', typeGuess:false, seg:'' });
-      c.edited = true; refresh(c); renderResults();
-      var ins = document.querySelectorAll('.cand[data-id="' + c.id + '"] input[data-j=name]'); if (ins.length) ins[ins.length - 1].focus();
-      return;
-    }
-    if (e.target.closest('[data-jobdel]')){
-      c.profile.jobs.splice(+e.target.closest('tr').getAttribute('data-ji'), 1);
-      c.edited = true; refresh(c); renderResults(); return;
-    }
-    if (e.target.closest('[data-reread]')){ c.edited = false; refresh(c); renderResults(); }
+    if (!e.target.closest('[data-force]')) return;
+    var c = candOf(e.target); if (c){ c.force = true; render(); }
   });
-  $('results').addEventListener('change', function(e){
-    var c = candOf(e.target); if (!c) return;
-    var f = e.target.getAttribute('data-f'), pk = e.target.getAttribute('data-p'), jk = e.target.getAttribute('data-j'), v = e.target.value;
-    if (f === 'final'){ c.final = v; rerender(); return; }
-    if (f === 'extra'){ c.extra = v; refresh(c); rerender(); return; }
-    if (!pk && !jk) return;
-    var p = c.profile;
-    if (pk === 'age') p.age = v === '' ? null : Math.max(0, parseInt(v, 10) || 0);
-    if (pk === 'edu') p.edu = v;
-    if (pk === 'pref') p.pref = v;
-    if (jk){
-      var j = p.jobs[+e.target.closest('tr').getAttribute('data-ji')]; if (!j) return;
-      if (jk === 'name') j.name = v;
-      if (jk === 'start') j.start = parseYm(v);
-      if (jk === 'end') j.end = parseYm(v);
-      if (jk === 'current'){ j.current = e.target.checked; if (j.current) j.end = null; }
-      if (jk === 'type'){ j.type = v; j.typeGuess = false; }
-      if (jk === 'count') j.count = e.target.checked;
-    }
-    c.edited = true; refresh(c); rerender();
-  });
-  $('results').addEventListener('input', function(e){
-    var c = candOf(e.target); if (c && e.target.getAttribute('data-f') === 'memo') c.memo = e.target.value;
-  });
-
-  function download(name, text, mime){
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([text], { type:(mime || 'text/plain') + ';charset=utf-8' }));
-    a.download = name; document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
-  }
-  function stampDate(){ var d = new Date(); return d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0'); }
-  $('csvOut').addEventListener('click', function(){
-    if (!state.cands.length){ alert('書き出す候補者がいません。'); return; }
-    download('書類選考結果_' + stampDate() + '.csv', buildResultCsv(pos(), state.cands), 'text/csv');
-  });
-  $('mapOut').addEventListener('click', function(){
-    if (!state.cands.length){ alert('書き出す候補者がいません。'); return; }
-    if (!confirm('対応表にはファイル名（氏名を含む場合があります）が入ります。取り扱いに注意してください。書き出しますか？')) return;
-    var rows = ['"候補者ID","書類のファイル名"'];
-    state.cands.forEach(function(c){ c.files.forEach(function(f){ rows.push(csvCell(c.id) + ',' + csvCell(f.name)); }); });
-    download('ID対応表_' + stampDate() + '.csv', '\uFEFF' + rows.join('\r\n'), 'text/csv');
-  });
+  $('results').addEventListener('toggle', function(e){
+    if (!e.target.classList || !e.target.classList.contains('more')) return;
+    var c = candOf(e.target); if (c) c.open = e.target.open;
+  }, true);
   $('clearAll').addEventListener('click', function(){
-    if (!state.cands.length || !confirm('読み込んだ書類と判定・メモをすべて消します。')) return;
-    state.cands = []; state.seq = 0; state.filter = 'all'; $('progress').textContent = ''; renderResults();
+    state.cands = []; state.filter = 'all'; $('progress').textContent = ''; render();
+    window.scrollTo({ top:0, behavior:'smooth' });
   });
 
-  load(); renderPos(); renderResults();
-  window.__screening = { state:state, addDocument:addDocument, renderResults:renderResults, importPositions:importPositions };
+  $('mustList').innerHTML = CONDS.map(function(d){ return '<li><b>' + h(d[1]) + '</b>' + (d[2] ? '<span>' + h(d[2]) + '</span>' : '') + '</li>'; }).join('');
+  $('legend').innerHTML = '<span>' + sym('ok', 15) + '条件を満たす</span><span>' + sym('chk', 15) + '目視確認（書類を見て判断）</span><span>' + sym('no', 15) + '条件を満たさない</span>';
+  render();
+  window.__screening = { state:state, buildCandidates:buildCandidates, render:render };
 })();
 </script>
 </body>
